@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +27,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                TextView count = findViewById(R.id.count);
+                String countValue = count.getText().toString();
+                int originalValue = Integer.parseInt(countValue);
+                int newValue = MyWorker.doubleValue(originalValue);
+                count.setText(Integer.toString(newValue));
+
+                Toast.makeText(getApplicationContext(),"I made it. This is a toast", Toast.LENGTH_SHORT).show();
+
+                Snackbar.make(view, "Changed value "+originalValue+" to "+newValue, Snackbar.LENGTH_LONG)
+                       .setAction("Action", null).show();
             }
         });
     }
