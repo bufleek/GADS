@@ -28,9 +28,9 @@ public class NoteActivity extends AppCompatActivity {
     private boolean mIsNewNote;
     private EditText mTextNoteText;
     private EditText mTextNoteTitle;
-    private Spinner mSpinnerCourses;
-
-    ImageView mImageView;
+    private Spinner mSpinnerCourses;ImageView mImageView;
+    private int mNotePosition;
+    private boolean mIsCanceling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,18 @@ public class NoteActivity extends AppCompatActivity {
         int position = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
 
         mIsNewNote = position == POSITION_NOT_SET;
-        if(!mIsNewNote)
+        if(mIsNewNote){
+            createNewNote();
+        }else{
             mNote = DataManager.getInstance().getNotes().get(position);
+        }
+
+    }
+
+    private void createNewNote() {
+        DataManager dm = DataManager.getInstance();
+        mNotePosition = dm.createNewNote();
+        mNote = dm.getNotes().get(mNotePosition);
     }
 
     @Override
@@ -91,10 +101,12 @@ public class NoteActivity extends AppCompatActivity {
         if (id == R.id.action_send_mail) {
             sendEmail();
             return true;
-        }
-        else if (id == R.id.action_use_camera) {
+        }else if (id == R.id.action_use_camera) {
             useCamera();
             return true;
+        }else if(id == R.id.action_cancel){
+            mIsCanceling = true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -119,6 +131,23 @@ public class NoteActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mIsCanceling){
+            if(mIsNewNote)
+                DataManager.getInstance().removeNote(mNotePosition);
+        }else{
+            saveNote();
+        }
+    }
+
+    private void saveNote() {
+        mNote.setCourse((CourseInfo) mSpinnerCourses.getSelectedItem() );
+        mNote.setTitle(mTextNoteTitle.getText().toString());
+        mNote.setText(mTextNoteText.getText().toString());
     }
 
     @Override
