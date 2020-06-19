@@ -1,27 +1,36 @@
 package com.example.notekeeper;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class NoteActivity extends AppCompatActivity {
     public static final String NOTE_POSITION = "com.example.notekeeper.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
     private NoteInfo mNote;
     private boolean mIsNewNote;
     private EditText mTextNoteText;
     private EditText mTextNoteTitle;
     private Spinner mSpinnerCourses;
+
+    ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,7 @@ public class NoteActivity extends AppCompatActivity {
 
         mTextNoteTitle = findViewById(R.id.text_note_title);
         mTextNoteText = findViewById(R.id.text_note_text);
+        mImageView = findViewById(R.id.captured_image);
 
         if(!mIsNewNote)
             displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
@@ -82,8 +92,21 @@ public class NoteActivity extends AppCompatActivity {
             sendEmail();
             return true;
         }
+        else if (id == R.id.action_use_camera) {
+            useCamera();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void useCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }else{
+            Toast.makeText(getApplicationContext(), "Your Phone Has No Camera Aplication Installed", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void sendEmail() {
@@ -96,5 +119,15 @@ public class NoteActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
