@@ -14,4 +14,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Courses" />
     </group>
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="Share" />
+    </group>
 </menu>
