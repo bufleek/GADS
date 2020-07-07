@@ -1,6 +1,8 @@
  package com.globomed.learn
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +31,7 @@ import java.util.ArrayList
 
 	override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
 		val employee = employeeList[position]
-		holder.setData(employee.name, employee.designation, position)
+		holder.setData(employee.name, employee.designation, employee.isSurgeon, position)
 		holder.setListener()
 	}
 
@@ -41,18 +43,21 @@ import java.util.ArrayList
 	inner class EmployeeViewHolder(itemView: View)  : RecyclerView.ViewHolder(itemView) {
 		var pos = 0;
 
-		fun setData(name: String, designation: String, position: Int) {
+		fun setData(name: String, designation: String, isSurgeon: Int, position: Int) {
 			itemView.tvEmpName.text = name
 			itemView.tvEmpDesignation.text = designation
+			itemView.tvIsSurgeonConfirm.text =
+				if (1 == isSurgeon) "YES"
+				else "NO"
+
 			this.pos = position
 		}
 
 		fun setListener() {
 			itemView.setOnClickListener{
-				val databaseHelper = DatabaseHelper(context)
-				val employee = DataManager.fetchEmployee(databaseHelper, employeeList[pos].id)
-				Log.i(TAG, employee.toString())
-				Toast.makeText(context, employee.toString(), Toast.LENGTH_SHORT).show()
+				val intent = Intent(context, UpdateEmployeeActivity::class.java)
+				intent.putExtra(GloboMedDBContract.EmployeeEntry.COLUMN_ID, employeeList[pos].id)
+				(context as Activity).startActivityForResult(intent, 2)
 			}
 		}
 

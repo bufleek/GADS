@@ -11,6 +11,7 @@ object GloboMedDBContract {
         const val COLUMN_NAME = "name"
         const val COLUMN_DOB = "dob"
         const val COLUMN_DESIGNATION = "designation"
+        const val COLUMN_SURGEON = "is_surgeon"
 
         const val SQL_CREATE_ENTRIES =
             "CREATE TABLE $TABLE_NAME (" +
@@ -20,5 +21,10 @@ object GloboMedDBContract {
                     "$COLUMN_DESIGNATION TEXT NOT NULL)"
 
         const val SQL_DROP_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
+
+        const val ALTER_TABLE_1 = "ALTER TABLE " +
+                "$TABLE_NAME "+
+                "ADD COLUMN $COLUMN_SURGEON INTERGER DEFAULT 0"
+
     }
 }
