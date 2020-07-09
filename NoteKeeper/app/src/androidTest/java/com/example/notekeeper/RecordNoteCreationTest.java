@@ -88,7 +88,6 @@ public class RecordNoteCreationTest {
 
         pressBack();
 
-        pressBack();
     }
 
     private static Matcher<View> childAtPosition(
