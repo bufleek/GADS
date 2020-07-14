@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.example.notekeeper.NoteKeeperDatabaseContract.CourseInfoEntry;
 import com.example.notekeeper.NoteKeeperDatabaseContract.NoteInfoEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -117,16 +118,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, null);
         displayNotes();
 
-        List<CourseInfo> courses = DataManager.getInstance().getCourses();
-        mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, courses);
+        mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, null);
 
     }
 
     private void displayCourses(){
         mRecyclerItems.setLayoutManager(mCoursesLayoutManager);
         mRecyclerItems.setAdapter(mCourseRecyclerAdapter);
+        loadCourses();
 
         selectNavigationMenuItem(R.id.nav_courses);
+    }
+
+    private void loadCourses() {
+        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+        final String[] courseColumns = {
+                CourseInfoEntry.COLUMN_COURSE_ID,
+                CourseInfoEntry.COLUMN_COURSE_TITLE};
+
+        final Cursor courseCursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns,
+                null, null, null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
+        mCourseRecyclerAdapter.changeCursor(courseCursor);
     }
 
     private void displayNotes(){
