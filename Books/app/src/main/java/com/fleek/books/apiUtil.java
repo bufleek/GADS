@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class apiUtil {
     private static final String QUERY_PARAMETER_KEY = "q";
     private static final String KEY = "key";
-    private static final String API_KEY = "";
+    private static final String API_KEY = "-";
 
     private apiUtil(){}
 
