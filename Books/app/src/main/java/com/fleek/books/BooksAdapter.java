@@ -1,6 +1,7 @@
 package com.fleek.books;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewhol
         return mBooks.size();
     }
 
-    public class BooksViewholder extends RecyclerView.ViewHolder{
+    public class BooksViewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvTitle, tvPublisher, tvAuthors, tvPublishedDate;
 
         public BooksViewholder(@NonNull View itemView) {
@@ -45,22 +46,23 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksViewhol
             tvAuthors = (TextView) itemView.findViewById(R.id.tv_authors);
             tvPublisher = (TextView) itemView.findViewById(R.id.tv_publisher);
             tvPublishedDate = (TextView) itemView.findViewById(R.id.tv_publishedDate);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Book book){
             tvTitle.setText(book.title);
-            String authors = "";
-            int i = 0;
-            for(String author:book.authors){
-                authors += author;
-                i++;
-                if(i<book.authors.length){
-                    authors += ", ";
-                }
-            }
-            tvAuthors.setText(authors);
+            tvAuthors.setText(book.authors);
             tvPublisher.setText(book.publisher);
             tvPublishedDate.setText(book.publishedDate);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Book selectedBook = mBooks.get(position);
+            Intent intent = new Intent(v.getContext(), BookDetails.class);
+            intent.putExtra("Book", selectedBook);
+            v.getContext().startActivity(intent);
         }
     }
 }
