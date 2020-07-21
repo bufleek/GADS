@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class apiUtil {
     private static final String QUERY_PARAMETER_KEY = "q";
     private static final String KEY = "key";
-    private static final String API_KEY = "-";
+    private static final String API_KEY = "";
 
     private apiUtil(){}
 
@@ -71,6 +71,8 @@ public class apiUtil {
         final String ITEMS = "items";
         final String VOLUME_INFO = "volumeInfo";
         final String DESCRIPTION = "description";
+        final String IMAGE_LINKS = "imageLinks";
+        final String THUMBNAIL = "thumbnail";
         ArrayList<Book> books = new ArrayList<Book>();
 
         try {
@@ -80,6 +82,7 @@ public class apiUtil {
             for(int i = 0; i < numberOfBooks; i++){
                 JSONObject bookJson = arrayBooks.getJSONObject(i);
                 JSONObject volumeInfoJson = bookJson.getJSONObject(VOLUME_INFO);
+                JSONObject imageLinksJson = volumeInfoJson.getJSONObject(IMAGE_LINKS);
                 int authorsNumber = volumeInfoJson.getJSONArray(AUTHORS).length();
                 String[] authors = new String[authorsNumber];
                 for(int j = 0; j < authorsNumber; j++){
@@ -93,7 +96,8 @@ public class apiUtil {
                         authors,
                         volumeInfoJson.getString(PUBLISHER),
                         volumeInfoJson.getString(PUBLISHED_DATE),
-                        volumeInfoJson.getString(DESCRIPTION));
+                        volumeInfoJson.getString(DESCRIPTION),
+                        imageLinksJson.getString(THUMBNAIL));
                 books.add(book);
             }
         }
