@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.gadsleaderboard.fragments.LearningLeadersFragment;
 import com.gadsleaderboard.fragments.SkillLeadersFragment;
@@ -47,7 +47,8 @@ public class MainActivity extends FragmentActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Submit btn", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SubmitProjectActivity.class));
+                finish();
             }
         });
     }
