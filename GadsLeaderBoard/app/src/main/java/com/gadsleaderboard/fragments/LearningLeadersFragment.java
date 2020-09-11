@@ -13,14 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.gadsleaderboard.ApiEndPoints;
-import com.gadsleaderboard.LearningLeader;
-import com.gadsleaderboard.LearningLeadersAdapter;
+import com.gadsleaderboard.utils.ApiEndPoints;
+import com.gadsleaderboard.models.LearningLeader;
+import com.gadsleaderboard.adapters.LearningLeadersAdapter;
 import com.gadsleaderboard.R;
-import com.gadsleaderboard.RetrofitBuilder;
+import com.gadsleaderboard.utils.RetrofitBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,4 +1,4 @@
-package com.gadsleaderboard;
+package com.gadsleaderboard.models;
 
 public class SkillIqLeader {
     public String name;

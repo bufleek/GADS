@@ -1,4 +1,4 @@
-package com.gadsleaderboard;
+package com.gadsleaderboard.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,38 +10,41 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.gadsleaderboard.R;
+import com.gadsleaderboard.models.LearningLeader;
 
 import java.util.ArrayList;
 
-public class SkillLeadersAdapter extends RecyclerView.Adapter<SkillLeadersAdapter.ViewHolder> {
-    private ArrayList<SkillIqLeader> mSkillIqLeaders = new ArrayList<>();
+public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeadersAdapter.ViewHolder> {
+    private ArrayList<LearningLeader> mLearningLeaders = new ArrayList<>();
+
     @NonNull
     @Override
-    public SkillLeadersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LearningLeadersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.leader_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SkillLeadersAdapter.ViewHolder holder, int position) {
-        SkillIqLeader learningLeader = mSkillIqLeaders.get(position);
+    public void onBindViewHolder(@NonNull LearningLeadersAdapter.ViewHolder holder, int position) {
+        LearningLeader learningLeader = mLearningLeaders.get(position);
         holder.leaderName.setText(learningLeader.name);
-        String leaderInfo = learningLeader.score + " Watching hours, " + learningLeader.country;
+        String leaderInfo = learningLeader.hours + " Watching hours, " + learningLeader.country;
         holder.leaderInfo.setText(leaderInfo);
         Glide.with(holder.mView.getContext()).load(learningLeader.badgeUrl).into(holder.leaderBadge);
     }
 
     @Override
     public int getItemCount() {
-        return mSkillIqLeaders.size();
+        return mLearningLeaders.size();
     }
 
-    public void changeData(ArrayList<SkillIqLeader> newData) {
-        mSkillIqLeaders = newData;
+    public void changeData(ArrayList<LearningLeader> newData){
+        mLearningLeaders = newData;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder  extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
         public ImageView leaderBadge;
         public TextView leaderName, leaderInfo;

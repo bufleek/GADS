@@ -1,4 +1,4 @@
-package com.gadsleaderboard;
+package com.gadsleaderboard.models;
 
 public class LearningLeader {
     public String name;

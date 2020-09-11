@@ -1,4 +1,4 @@
-package com.gadsleaderboard;
+package com.gadsleaderboard.utils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -13,12 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.gadsleaderboard.ApiEndPoints;
-import com.gadsleaderboard.LearningLeader;
+import com.gadsleaderboard.utils.ApiEndPoints;
 import com.gadsleaderboard.R;
-import com.gadsleaderboard.RetrofitBuilder;
-import com.gadsleaderboard.SkillIqLeader;
-import com.gadsleaderboard.SkillLeadersAdapter;
+import com.gadsleaderboard.utils.RetrofitBuilder;
+import com.gadsleaderboard.models.SkillIqLeader;
+import com.gadsleaderboard.adapters.SkillLeadersAdapter;
 
 import java.util.ArrayList;
 

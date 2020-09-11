@@ -1,4 +1,7 @@
-package com.gadsleaderboard;
+package com.gadsleaderboard.utils;
+
+import com.gadsleaderboard.models.LearningLeader;
+import com.gadsleaderboard.models.SkillIqLeader;
 
 import java.util.ArrayList;
 
