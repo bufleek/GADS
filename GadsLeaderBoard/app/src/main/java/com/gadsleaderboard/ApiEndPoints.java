@@ -1,7 +1,14 @@
 package com.gadsleaderboard;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
 public interface ApiEndPoints {
-    String GET_BASE_URL = "https://gadsapi.herokuapp.com/";
-//    Learning Leaders - /api/hours
-//    Skill IQ Leaders - /api/skilliq
+    @GET("/api/hours")
+    Call<ArrayList<LearningLeader>> getLearningLeaders();
+
+    @GET("/api/skilliq")
+    Call<ArrayList<SkillIqLeader>> getSkillLeaders();
 }
