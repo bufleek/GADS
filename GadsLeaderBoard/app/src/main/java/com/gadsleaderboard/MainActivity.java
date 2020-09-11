@@ -48,7 +48,6 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SubmitProjectActivity.class));
-                finish();
             }
         });
     }
