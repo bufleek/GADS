@@ -27,8 +27,8 @@ public class SubmitProjectActivity extends AppCompatActivity implements View.OnC
     private ProgressBar mProgressBar;
 
     private String name, lastName;
-    private final String projectLink = "https://github.com/bufleek/GADS/tree/master/GadsLeaderBoard";
-    private final String email = "brunookiprop@gmail.com";
+    private String projectLink;
+    private String email;
     private final String submitUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse";
 
     @Override
@@ -117,8 +117,8 @@ public class SubmitProjectActivity extends AppCompatActivity implements View.OnC
     private boolean validateInput() {
         name = etFirstName.getText().toString().trim();
         lastName = etLastName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String pLink = etProjectLink.getText().toString().trim();
+        email = etEmail.getText().toString().trim();
+        projectLink = etProjectLink.getText().toString().trim();
 
         if (name.isEmpty()){
             etFirstName.setError("");
@@ -132,7 +132,7 @@ public class SubmitProjectActivity extends AppCompatActivity implements View.OnC
             etEmail.setError("");
            return false;
         }
-        if (pLink.isEmpty()){
+        if (projectLink.isEmpty()){
             etProjectLink.setError("");
             return false;
         }
